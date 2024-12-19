@@ -36,6 +36,10 @@ public class Runigram {
 		Color c2 = new Color(200 , 20 , 40);
 
 		print (blend(c1, c2, 0.25));
+
+		Color[][] ironman = read("ironman.ppm");
+		Color[][] thor = read("thor.ppm");
+		morph(ironman, thor, 10);
 		//// Write here whatever code you need in order to test your work.
 		//// You can continue using the image array.
 
@@ -221,11 +225,12 @@ public class Runigram {
 		if (M != target[0].length || N != target.length){
 			target = scaled(target , M , N);
 		}
-
+		setCanvas(morph);
 		int i = 0;
-		while (i < n){
-			morph = blend(target, morph, (int)((n - i) / n));
-			setCanvas(morph);
+		double alpha = 0;
+		while (i <= n){
+			alpha = (double) (n - i) / n;
+			morph = blend(source , target , alpha);
 			display(morph);
 			StdDraw.pause(500);
 			i++;
